@@ -2,7 +2,7 @@
 
 A 2-3 hour k6 workshop with practical k6 examples using the QuickPizza demo app. 
 
-This workshop is intented to be used as a starting point for anyone who wants to learn or teach k6 to others. 
+This workshop is intended to be used as a starting point for anyone who wants to learn or teach k6 to others. 
 
 You are encouraged to copy and modify the workshop for your particular case or audience. If you need some slides, check out the [k6 starter deck](https://docs.google.com/presentation/d/1gviRg7RTzT0Y2_5WPBADyn5xpa96PIqWivGAThNW6pM/edit?usp=sharing).
 
