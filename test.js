@@ -1,5 +1,16 @@
 import http from "k6/http";
 
+export const options = {
+  stages: [
+    { duration: "5s", target: 10 },
+    { duration: "10s", target: 10 },
+    { duration: "5s", target: 0 },
+  ],
+  thresholds: {
+    "http_req_duration": ["p(95)<5000"],
+  },
+}
+
 const BASE_URL = __ENV.BASE_URL || "http://localhost:3333";
 
 export default function () {
@@ -17,7 +28,8 @@ export default function () {
       {
         headers: {
           "Content-Type": "application/json",
-          "X-User-ID": 686963,
+         // "X-User-ID": 23423,
+          "Authorization": "Token MOcliGa9T0VajY0J",
         },
       });
 
@@ -31,4 +43,10 @@ export default function () {
   } else {
     console.error(`Request failed with status ${res.status}`);
   }
+}
+
+export function handleSummary(data){
+  return {
+    'summary.json': JSON.stringify(data),
+  };
 }
