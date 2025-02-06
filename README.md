@@ -87,7 +87,7 @@ Before writing our first test, let's briefly cover the load testing fundamentals
 
 ### Run your first k6 test
 
-To run your first test, we'll use the [`test.js`](./test.js) file in this repo:
+To run your first test, we'll use the [`script.js`](./script.js) file in this repo:
 
 ```js
 import http from "k6/http";
@@ -116,14 +116,14 @@ export default function () {
 Then, run it with:
 
 ```bash
-k6 run test.js
+k6 run script.js
 ```
 
 <details>
 <summary>Docker run</summary>
 
 ```bash
-docker run -i --network=default_network grafana/k6:latest run -e BASE_URL=http://quickpizza:3333  - <test.js
+docker run -i --network=default_network grafana/k6:latest run -e BASE_URL=http://quickpizza:3333  - <script.js
 ```
 
 </details>
@@ -432,7 +432,7 @@ echo $?
 <summary>Docker run</summary>
 
 ```bash
-docker run -i --network=default_network grafana/k6 run -e BASE_URL=http://quickpizza:3333  - <test.js; echo $?
+docker run -i --network=default_network grafana/k6 run -e BASE_URL=http://quickpizza:3333  - <script.js; echo $?
 ```
 
 </details>
@@ -485,7 +485,7 @@ If you run the test again, you should see a new file named `summary.json` with a
 <summary>Docker run</summary>
 
 ```bash
-docker run -i --network=default_network grafana/k6:latest run -e BASE_URL=http://quickpizza:3333  - <test.js;
+docker run -i --network=default_network grafana/k6:latest run -e BASE_URL=http://quickpizza:3333  - <script.js;
 
 # Find the ID of the k6 container that ran
 docker container ls -a
@@ -512,14 +512,14 @@ It is more useful to visualize time-series graphs to understand what happened at
 Note that you should set a test duration to at least 30 seconds to receive enough data to visualize a graph. Then, enable the web dashboard by setting the `K6_WEB_DASHBOARD` environment variable to `true` when running your test script as follows:
 
 ```bash
-K6_WEB_DASHBOARD=true k6 run test.js
+K6_WEB_DASHBOARD=true k6 run script.js
 ```
 
 <details>
 <summary>Docker run</summary>
 
 ```bash
-docker run -p 5665:5665 -i --network=default_network grafana/k6:latest run -e BASE_URL=http://quickpizza:3333 -e K6_WEB_DASHBOARD=true  - <test.js 
+docker run -p 5665:5665 -i --network=default_network grafana/k6:latest run -e BASE_URL=http://quickpizza:3333 -e K6_WEB_DASHBOARD=true  - <script.js 
 ```
 
 </details>
@@ -542,14 +542,14 @@ The Docker Compose playground already has a Prometheus and Grafana instance runn
 You just need to change how you invoke k6, and add the Prometheus output:
 
 ```sh
-k6 run --out=experimental-prometheus-rw test.js
+k6 run --out=experimental-prometheus-rw script.js
 ```
 
 <details>
 <summary>Docker run</summary>
 
 ```bash
-docker run -i --network=default_network grafana/k6:latest run --out=experimental-prometheus-rw -e BASE_URL=http://quickpizza:3333 -e K6_PROMETHEUS_RW_SERVER_URL=http://prometheus:9090/api/v1/write - <test.js
+docker run -i --network=default_network grafana/k6:latest run --out=experimental-prometheus-rw -e BASE_URL=http://quickpizza:3333 -e K6_PROMETHEUS_RW_SERVER_URL=http://prometheus:9090/api/v1/write - <script.js
 ```
 
 </details>
@@ -568,7 +568,7 @@ Then, go to dashboards and click on the k6 dashboard ([this URL should get you t
 Optionally, you can run the test and set the `testid` tag to identify the metrics of specific test runs. `testid` can be any unique string to identify the test run to query the results.
 
 ```bash
-k6 run --out=experimental-prometheus-rw --tag testid=1 test.js
+k6 run --out=experimental-prometheus-rw --tag testid=1 script.js
 ```
 
 Then, you can filter specific test results in PromQL queries. The previous k6 Grafana dashboard includes a `Test ID` drop-down menu at the top to filter test results by `testid`.
@@ -586,7 +586,7 @@ For example, you can override the number of VUs with the `--vus` flag and the du
 
 
 ```bash
-k6 run test.js -i 1
+k6 run script.js -i 1
 ```
 
 Alternatively, you can control the test configuration via environment variables. k6 uses the option from the highest order of preference, as shown on the following diagram:
@@ -745,7 +745,7 @@ In Docker, you need to mount the `customers.json` file. You can do that by addin
 
 
 ```bash
-docker run -v $(pwd)/customers.json:/customers.json -i --network=default_network grafana/k6:latest run -e BASE_URL=http://quickpizza:3333 - <test.js
+docker run -v $(pwd)/customers.json:/customers.json -i --network=default_network grafana/k6:latest run -e BASE_URL=http://quickpizza:3333 - <script.js
 ```
 
 </details>
